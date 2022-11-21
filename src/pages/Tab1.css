@@ -1,0 +1,50 @@
+ion-col {
+    border: solid 1px #fff;
+    text-align: center;
+}
+
+.weekly-calendar {
+    margin: 20px;
+}
+
+.weekly-calendar .labels {
+    font-size: xx-small;
+    font-weight: 300;
+}
+
+.weekly-calendar .dates {
+    margin-bottom: 20px;
+}
+
+.circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: lightcoral;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    color: #fdfdfd;
+    font-weight: bolder;
+}
+
+.circle .header {
+    padding-top: 20%;
+}
+
+.circle .subheader {
+    font-size: larger;
+}
+
+.circle .emoji {
+    font-size: 400%;
+}
+
+.circle button {
+    margin: 3% auto auto;
+    background-color: #fdfdfd;
+    padding: 10px 14%;
+    color: lightcoral;
+    font-weight: bold;
+    border-radius: 5%;
+}
