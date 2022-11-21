@@ -19,8 +19,7 @@ ion-col {
 .weekly-calendar .dates .today {
     font-weight: bolder;
     color: lightcoral;
-    /*text-decoration: underline;*/
-    border-bottom: solid 1px;
+    border-bottom: dashed 1px;
 }
 
 .circle {
