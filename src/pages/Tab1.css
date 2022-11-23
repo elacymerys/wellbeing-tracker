@@ -3,20 +3,20 @@ ion-col {
     text-align: center;
 }
 
-.weekly-calendar {
+ion-grid {
     margin: 20px;
 }
 
-.weekly-calendar .labels {
+.days {
     font-size: xx-small;
     font-weight: 300;
 }
 
-.weekly-calendar .dates {
+.dates {
     margin-bottom: 20px;
 }
 
-.weekly-calendar .dates .today {
+.dates .today {
     font-weight: bolder;
     color: lightcoral;
     border-bottom: dashed 1px;
@@ -50,4 +50,37 @@ ion-col {
     --background: #fdfdfd;
     --color: lightcoral;
     font-weight: bold;
+}
+
+ion-item {
+    --padding: 0;
+    font-size: 65%;
+}
+
+.modal-header {
+    text-align: center;
+}
+
+.modal-subheader {
+    text-align: center;
+    margin-top: 10%;
+    color: #424242;
+}
+
+.mood-scale-rate {
+    color: #424242;
+}
+
+.mood-emojis {
+    margin-bottom: 20px;
+    font-size: 200%;
+}
+
+.mood-emoji:active {
+    background-color: #c9c9c9;
+    border-radius: 25px;
+}
+
+.mood-scale {
+    font-size: 75%;
 }

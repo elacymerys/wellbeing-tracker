@@ -1,9 +1,9 @@
 import {
-    IonButton,
+    IonButton, IonButtons,
     IonCol,
     IonContent,
     IonGrid,
-    IonHeader, IonIcon,
+    IonHeader, IonIcon, IonModal,
     IonPage,
     IonRow,
     IonTitle,
@@ -11,22 +11,24 @@ import {
 } from '@ionic/react';
 import './Tab1.css';
 import { CalendarService } from "../services/calendar-service";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { calendarOutline } from "ionicons/icons";
+
+const MOOD_EMOJIS: string[] = ["😶", "😱", "😨", "🙁", "😕", "😐", "🙂", "😊", "😃", "😁", "😎"];
 
 const Calendar: React.FC = () => {
     const today = CalendarService.getCurrentDate();
 
-    const labels = CalendarService.getDays().map(day => {
+    const daysOfWeek = CalendarService.getDays().map(day => {
         return <IonCol>{ day[0] }</IonCol>;
     });
 
     const dates = CalendarService.getCurrentWeekDates().map(date => {
-        return <IonCol onClick={ e => console.log(date) } className={ date === today ? "today" : "" }>{ date }</IonCol>;
+        return <IonCol onClick={ () => console.log(date) } className={ date === today ? "today" : "" }>{ date }</IonCol>;
     });
 
     return (
-        <IonGrid className="weekly-calendar">
+        <IonGrid>
             <IonRow>
                 <IonCol></IonCol>
                 <IonCol size="auto">
@@ -36,8 +38,8 @@ const Calendar: React.FC = () => {
                     <IonIcon icon={ calendarOutline } size="small"></IonIcon>
                 </IonCol>
             </IonRow>
-            <IonRow className="labels">
-                { labels }
+            <IonRow className="days">
+                { daysOfWeek }
             </IonRow>
             <IonRow className="dates">
                 { dates }
@@ -47,15 +49,65 @@ const Calendar: React.FC = () => {
 }
 
 const MoodLogger: React.FC = () => {
+    const modal = useRef<HTMLIonModalElement>(null);
+
+    const [moodEmojiId, setMoodEmojiId] = useState<number>(0);
+    const [chosenMoodEmojiId, setChosenMoodEmojiId] = useState<number>(0);
+
+    const moodEmojis = (ids: number[]) => ids.map(id => (
+        <IonCol className="mood-emoji" onClick={ () => setChosenMoodEmojiId(id) }>{ MOOD_EMOJIS[id] }</IonCol>
+    ));
+
+    const moodScale = (ids: number[]) => ids.map(id => (
+        <IonCol className="mood-scale-rate">{ id }</IonCol>
+    ));
+
+    const confirm = () => {
+        setMoodEmojiId(chosenMoodEmojiId);
+        modal.current?.dismiss();
+    }
+
     return (
         <div className="circle">
             <h5 className="header">Mood <br /> <span className="subheader">How do you feel?</span></h5>
             <div className="emoji">
-                😃
+                { MOOD_EMOJIS[moodEmojiId] }
             </div>
-            <IonButton onClick={ e => console.log('Log your mood') }>
+            <IonButton id="open-modal" >
                 Log mood
             </IonButton>
+            <IonModal ref={ modal } trigger="open-modal">
+                <IonHeader>
+                    <IonToolbar>
+                        <IonButtons slot="start">
+                            <IonButton onClick={ () => modal.current?.dismiss() }>Cancel</IonButton>
+                        </IonButtons>
+                        <IonTitle className="modal-header">Your Mood</IonTitle>
+                        <IonButtons slot="end">
+                            <IonButton strong={ true } onClick={ () => confirm() }>
+                                Confirm
+                            </IonButton>
+                        </IonButtons>
+                    </IonToolbar>
+                </IonHeader>
+                <IonContent>
+                    <IonTitle className="modal-subheader">Rate your mood:</IonTitle>
+                    <IonGrid>
+                        <IonRow className="mood-scale">
+                            { moodScale([10, 9, 8, 7, 6]) }
+                        </IonRow>
+                        <IonRow className="mood-emojis">
+                            { moodEmojis([10, 9, 8, 7, 6]) }
+                        </IonRow>
+                        <IonRow className="mood-scale">
+                            { moodScale([5, 4, 3, 2, 1]) }
+                        </IonRow>
+                        <IonRow className="mood-emojis">
+                            { moodEmojis([5, 4, 3, 2, 1]) }
+                        </IonRow>
+                    </IonGrid>
+                </IonContent>
+            </IonModal>
         </div>
     );
 }
