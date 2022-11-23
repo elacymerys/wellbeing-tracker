@@ -82,7 +82,7 @@ const MoodLogger: React.FC = () => {
                         <IonButtons slot="start">
                             <IonButton onClick={ () => modal.current?.dismiss() }>Cancel</IonButton>
                         </IonButtons>
-                        <IonTitle className="modal-header">Your Mood</IonTitle>
+                        <IonTitle className="header">Your Mood</IonTitle>
                         <IonButtons slot="end">
                             <IonButton strong={ true } onClick={ () => confirm() }>
                                 Confirm
@@ -117,13 +117,13 @@ const Tab1: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Tab 1</IonTitle>
+                    <IonTitle className="header">Mood Tracker</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
                 <IonHeader collapse="condense">
                     <IonToolbar>
-                        <IonTitle size="large">Tab 1</IonTitle>
+                        <IonTitle className="header" size="large">Mood Tracker</IonTitle>
                     </IonToolbar>
                 </IonHeader>
                 <Calendar />
